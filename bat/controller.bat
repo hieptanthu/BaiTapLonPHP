@@ -1,0 +1,10 @@
+php artisan make:controller categoryControler --resource --model=category
+php artisan make:controller feedbackControler --resource --model=feedback
+php artisan make:controller galeryControler --resource --model=galery
+php artisan make:controller ordersControler --resource --model=orders
+php artisan make:controller order_detailsControler --resource --model=order_details
+php artisan make:controller productControler --resource --model=product
+php artisan make:controller roleControler --resource --model=role
+php artisan make:controller tokensControler --resource --model=tokens
+php artisan make:controller userControler --resource --model=user
+php artisan make:controller product_detailsControler --resource --model=product_details
