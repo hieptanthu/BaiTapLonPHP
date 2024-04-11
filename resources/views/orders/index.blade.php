@@ -7,8 +7,6 @@
                     {{-- <form action="{{ route('Product.index') }}" method="GET">
                         @csrf @method('post')
                       
-                       
-                    
                         <button style="margin-left: 50%;" class="btn btn-primary">tìm kiếm</button>
                     </form> --}}
                   
@@ -30,7 +28,8 @@
                                             <th>email</th>
                                             <th>note</th>
                                             <th>total_money</th>
-                                            <th>details</th>
+                                            <th>trạng thái</th>
+                                            <th>hoạt động</th>
                                            
                                         </tr>
                                     </thead>
@@ -51,6 +50,14 @@
                                             </td>
                                             <td>
                                                 {{ $item->total_money}}
+                                            </td>
+                                            <td>
+                                                
+                                                @if ( $item->status==0)
+                                                    Chưa xử lý
+                                                @else
+                                                    đã sử lý
+                                                @endif
                                             </td>
                                             <td>
                                                 <a class="btn btn-warning"
