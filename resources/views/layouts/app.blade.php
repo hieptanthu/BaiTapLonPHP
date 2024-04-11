@@ -24,12 +24,14 @@
 </head>
 <body class="font-sans antialiased">
 
-
+    
     <div class="min-h-screen bg-gray-100">
+        <x-header :menu="$menu"/>
         <!-- Nội dung chính của trang -->
         <main>
             {{ $slot }}
         </main>
+        <x-footer/>
     </div>
 
     <!-- jQuery -->

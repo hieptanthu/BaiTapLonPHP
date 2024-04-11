@@ -18,18 +18,13 @@ use Illuminate\Support\Facades\Route;
 //     return view('user.index');
 // });
 
+// user 
 Route::get('/Product/search', [productControler::class, 'search'])->name('Product.search');
 Route::get('/Product/add-Card/', [homeController::class, 'addCart'])->name('addCart');
-Route::get('/Product_details{productId}', [product_detailsControler::class ,'index'])->name('Product_details.index');
 
-Route::put('/product-detail{id}', [ product_detailsControler::class ,'update'])->name('Product_detail.update');
-Route::resource('/Product_details', product_detailsControler::class );
-Route::get('/admin2', [adminControler::class , 'index'])->name('admin');
-Route::resource('/oders', ordersControler::class );
 
 Route::get('/', function () {
-    
-    return view("admin.index");
+    return redirect()->route("homes.index");
 });
 
 Route::resource('/homes', homeController::class );
@@ -40,9 +35,6 @@ Route::get('/cart', [homeController::class ,'ShowCard'])->name('ShowCard');
 Route::get('/cart/update/{id}', [homeController::class ,'updateCart'])->name('updateCard');
 Route::get('/cart/delete/{id}', [homeController::class ,'deleteCart'])->name('deleteCard');
 
-
-Route::match(['get', 'post'], '/product-detail', [product_detailsControler::class, 'store'])->name('Product_detail.store');
-
 // Route::post('/product-detail', [ product_detailsControler::class ,'store'])->name('Product_detail.store');
 // Route::post('/product-detail{id}', [product_detailsControler::class ,'store'])->name('Product_detail.store');
 
@@ -50,7 +42,6 @@ Route::match(['get', 'post'], '/product-detail', [product_detailsControler::clas
 // thanh toán 
 Route::get('/thanhToan', [homeController::class ,'VaoThanhToan'])->name('VaoThanhToan');
 Route::post('/thanhToan1', [homeController::class ,'ThanhToan'])->name('ThanhToan');
-Route::resource('/oder', ordersControler::class );
 
 ;
 
@@ -62,8 +53,18 @@ Route::middleware(['auth', 'verified','Admin'])->group(function () {
     Route::put('/Category/offCategory{id}', [categoryControler::class, 'offCategory'])->name('Category.offCategory');
     Route::put('/Product/OnAndOffproduct{id}', [productControler::class, 'OnAndOffproduct'])->name('Product.OnAndOffproduct');
     Route::resource('/Category', categoryControler::class );
-    Route::get('/aa',[categoryControler::class, 'index'])->name('Category.index');
+    Route::get('/Category',[categoryControler::class, 'index'])->name('Category.index');
     Route::resource('/Product', productControler::class );
+    Route::get('/admin2', [adminControler::class , 'index'])->name('admin');
+    Route::resource('/oders', ordersControler::class );
+    Route::put('/product-detail{id}', [ product_detailsControler::class ,'update'])->name('Product_detail.update');
+    Route::resource('/Product_details', product_detailsControler::class );
+    Route::get('/Product_details{productId}', [product_detailsControler::class ,'index'])->name('Product_details.index');
+    Route::get('/oders/print/{id}',[ordersControler::class ,'print' ] )-> name('oders.print');
+    Route::get('/oders/DownloadOder/{id}',[ordersControler::class ,'DownloadOder' ] )-> name('oders.DownloadOder');
+    Route::resource('/oder', ordersControler::class );
+    Route::match(['get', 'post'], '/product-detail', [product_detailsControler::class, 'store'])->name('Product_detail.store');
+
    
     
 });

@@ -1,6 +1,6 @@
 <x-app-layout>
    
-    <x-header :menu="$menu"/>
+    
     <div class="page-heading" id="top">
         <div class="container">
             <div class="row">
@@ -16,6 +16,6 @@
     </div>
     <x-cart  :cart="$cart"></x-cart>
 
-    <x-footer/>
-    <h1>okd</h1>
+    
+    
 </x-app-layout>

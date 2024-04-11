@@ -1,6 +1,6 @@
 <x-app-layout>
    
-    <x-header :menu="$menu"/>
+    
     <div class="page-heading" id="top">
         <div class="container">
             <div class="row">
@@ -16,7 +16,7 @@
     </div>
 
     <x-ThanhToan  />
-    <x-footer/>
+    
     <script>
        
         

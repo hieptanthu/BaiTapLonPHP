@@ -45,6 +45,12 @@ class product extends Model
     {
         return $this->belongsTo(Category::class);// Thay 'categoryId' bằng khóa ngoại thực sự trong bảng products tham chiếu đến bảng categories
     }
+
+
+    public function productDetails()
+    {
+        return $this->hasMany(product_details::class);
+    }
     
 
    

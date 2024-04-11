@@ -7,41 +7,38 @@ use App\Models\Product;
 use App\Models\category;
 use App\Models\product_details;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class homeController extends Controller
 {
     
     public function index()
 {
+
+    $listProducts = new Collection(); 
     $menu = Category::orderBy("id", "desc")->paginate();
     
     // Kiểm tra xem có đủ phần tử trong $menu hay không trước khi truy cập
-    $products1 = $products2 = $products3 = null;
+   
+    $i = 0;
     if ($menu->count() >= 3) {
-        $products1 = Product::where('category_id', $menu[1]->id)
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
-
-        $products2 = Product::where('category_id', $menu[2]->id)
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
-
-        $products3 = Product::where('category_id', $menu[3]->id)
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
+        while ($i < 3) { // Thay vì do...while, bạn nên sử dụng while và chỉ cần chạy 3 lần nếu có đủ menu
+            $items = Product::where('category_id', $menu[$i]->id)
+                ->orderBy('created_at', 'desc')
+                ->paginate(10);
+            $listProducts[$i] = $items; // Sử dụng $listProducts[$i] để lưu trữ kết quả của mỗi truy vấn
+            $i++;
+        }
     }
-
+    
     return view("user.index", [
         "menu" => $menu,
-        "products1" => $products1,
-        "products2" => $products2,
-        "products3" => $products3
+        "listProducts" => $listProducts,
     ]);
 }
 
 public function products(Request $request)
 {
-    $menu = Category::orderBy("id", "desc")->paginate();
     $a = new Product();
     $keyword = $request->input('keyword');
     $quantity = $request->input('quantity');
@@ -63,7 +60,7 @@ public function products(Request $request)
 
 public function productsCategory($id)
 {
-    $menu = Category::all();
+  
 
     $products = Product::where('category_id', $id)
         ->orderBy('created_at', 'desc')
@@ -71,19 +68,16 @@ public function productsCategory($id)
 
     return view("user.product", [
         "products" => $products,
-        "menu" => $menu
+       
     ]);
 }
 
 public function product($id)
 {
-    $menu = Category::all();
     $producte = Product::findOrFail($id);
     $maus = product_details::where('product_id', $id)->paginate();
    
-    
     return view("user.product-details", [
-        "menu" => $menu,
         "producte" => $producte,
         "maus"=>$maus
     ]);
@@ -145,16 +139,16 @@ public function ShowCard(){
     
    
     $cart=session()->get('cart');
-    $menu = Category::all();
    
-   return view("user.cart",["menu" => $menu,'cart'=>$cart]);
+   
+   return view("user.cart",['cart'=>$cart]);
 }
 
 
 public function VaoThanhToan(Request $request){
   
-    $menu = Category::all();
-   return view("user.thanhToan",["menu" => $menu]);
+  
+   return view("user.thanhToan");
 }
 
 

@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use App\View\Composers\HeaderComposer;
+use App\Models\category;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,6 +22,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-       
+        View::composer('layouts.app', function ($view) {
+            $menu = Category::orderBy("id", "desc")->paginate();
+            $view->with('menu', $menu);
+        });
     }
 }

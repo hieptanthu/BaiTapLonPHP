@@ -1,6 +1,5 @@
 <x-app-layout>
     {{-- {{ dd($menu);}} --}}
-    <x-header :menu="$menu"/>
 
     <div class="main-banner" id="top">
         <div class="container-fluid">
@@ -52,9 +51,11 @@
             </div>
         </div>
     </div>
-    <x-sanphamHome :menu="$menu" :items="$products1" />
-    <x-sanphamHome :menu="$menu" :items="$products2" />
-    <x-sanphamHome :menu="$menu" :items="$products3" />
+   
+   @foreach ($listProducts as $item )
+    <x-sanphamHome :menu="$menu" :items="$item" />
+   @endforeach
+   
     <section class="section" id="social">
         <div class="container">
             <div class="row">
@@ -137,5 +138,5 @@
             </div>
         </div>
     </section>
-    <x-footer/>
+    
 </x-app-layout>
